@@ -83,21 +83,20 @@ A minimal dialog message for PWAs that gives the user the option to reload the p
   * **Default = `'A new version is available 💎'`**
   
   
-* `color: String` - Dialog text color
+* `color: String` - Dialog CSS text color
   * **Default = `'#303f9f'`**
   
   
-* `background-color: String` - Dialog background color
+* `background-color: String` - Dialog CSS background color
   * **Default = `'#ff4081'`**
   
   
 * `timeout: String|Number` - Dialog's timeout until it is dismissed (ms)
-  * **Default = `6000`**
-  * ⚠️ Need to be between 4000 and 10000
-  
-  
-* `onDismiss: Function` - Callback when dialog has been dismissed after timeout or by clicking on the **X** button.
   * **Default = `null`**
+  
+<!--   
+* `onDismiss: Function` - Callback when dialog has been dismissed after timeout or by clicking on the **X** button.
+  * **Default = `null`** -->
 
 #### JavaScript API Example
 

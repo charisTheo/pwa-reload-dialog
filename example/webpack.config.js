@@ -16,7 +16,7 @@ const plugins = [
 module.exports = [
   {
     mode: 'none',
-    entry: './main.js',
+    entry: './dist.js',
     output: {
       filename: '[name].js',
       chunkFilename: '[name].js',

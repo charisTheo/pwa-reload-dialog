@@ -7,7 +7,7 @@ var workbox;
 
 const defaultServiceWorkerFileUrl = './sw.js';
 const defaultServiceWorkerScope = '/';
-const defaultTimeout = 6000;
+const defaultTimeout = null;
 const defaultLabelText = 'A new version is available 💎';
 const defaultColor = '#303f9f';  // --pwa-reload-dialog-color
 const defaultBackgroundColor = '#ff4081'; // --pwa-reload-dialog-bg-color
@@ -55,13 +55,13 @@ class PwaReloadDialog extends HTMLElement {
     get color() {return this._color || defaultColor}
     set color(color) {
         this._color = color;
-        // this.style.setProperty('--pwa-reload-dialog-color', this._color);
+        this.style.setProperty('--pwa-reload-dialog-color', this._color);
     }
 
     get backgroundColor() {return this._backgroundColor || defaultBackgroundColor}
     set backgroundColor(color) {
         this._backgroundColor = color;
-        // this.style.setProperty('--pwa-reload-dialog-bg-color', this._backgroundColor);
+        this.style.setProperty('--pwa-reload-dialog-bg-color', this._backgroundColor);
     }
 
     // get dismiss() {return this._dismiss || null}
@@ -132,7 +132,6 @@ class PwaReloadDialog extends HTMLElement {
 
     createNewDialogElement() {
         return Dialog.create(this.labelText, { 
-            timeout: this.timeout, 
             dismiss: this.dismiss,
             eventListener: this.updateAndReload.bind(this),
             eventListenerLabel: 'Reload page for the new version'
@@ -160,7 +159,9 @@ class PwaReloadDialog extends HTMLElement {
 
     open() {
         const dialog = this.shadowRoot.querySelector('.dialog');
-        dialog.removeAttribute('closed');
+        if (dialog.getAttribute('closed') !== null) {
+            dialog.removeAttribute('closed');
+        }
         dialog.setAttributeNode(document.createAttribute('open'));
         dialog.setAttribute('aria-hidden', 'false');
         this.logInfo("PwaReloadDialog -> Opened");
