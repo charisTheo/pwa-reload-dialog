@@ -36,6 +36,9 @@
 .dialog[open] {
     transform: scaleY(1);
 }
+.dialog[closed] {
+    display: none;
+}
 
 .focus-text {
     will-change: transform;

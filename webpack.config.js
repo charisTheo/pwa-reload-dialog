@@ -5,8 +5,7 @@ module.exports = [
     mode: 'production',
     entry: path.resolve(__dirname, 'src/index.js'),
     output: {
-      filename: '[name].js',
-      chunkFilename: '[name].js',
+      filename: 'dist.js',
       path: path.resolve(__dirname, 'example'),
       libraryTarget: 'umd',
       globalObject: 'this'
@@ -42,8 +41,7 @@ module.exports = [
     mode: 'production',
     entry: path.resolve(__dirname, 'src/index.js'),
     output: {
-      filename: '[name].js',
-      chunkFilename: '[name].js',
+      filename: 'index.js',
       libraryTarget: 'var',
       path: path.resolve(__dirname, 'dist')
     },

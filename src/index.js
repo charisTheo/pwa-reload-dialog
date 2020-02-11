@@ -1,5 +1,8 @@
 import { Workbox } from 'workbox-window';
 
+import * as Dialog from './dialog.js';
+import dialogStyles from '!!css-to-string-loader!css-loader!./dialog.css';
+
 var workbox;
 
 const defaultServiceWorkerFileUrl = './sw.js';
@@ -18,14 +21,16 @@ class PwaReloadDialog extends HTMLElement {
 
         this.open = this.open.bind(this);
         this.dismiss = this.dismiss.bind(this);
+    }
 
+    connectedCallback() {
         this.attachShadow({mode: 'open'});
 
         this.swUrl = this.getAttribute('sw-url');
         this.swScope = this.getAttribute('sw-scope');
         
         if ('serviceWorker' in navigator) {
-            // TODO test in a site that has already a service worker registered. Maybe need to check for a SW registration before registering.
+            // TODO get SW registration and initialise the Workbox object
             workbox = new Workbox(this.swUrl, { scope: this.swScope });
             this.listenForNewVersion();
             workbox.register();
@@ -117,17 +122,16 @@ class PwaReloadDialog extends HTMLElement {
         });
     }
     
-    async onNewVersionFound() {
+    onNewVersionFound() {
         this.logInfo("PwaReloadDialog -> New version has been found! Opening snackbar...");
-        await this.createNewDialogElement();
-        this.attachDialogToShadowRoot();
+        const dialog = this.createNewDialogElement();
+        this.attachDialogToShadowRoot(dialog);
+
         this.open();
     }
 
-    async createNewDialogElement() {
-        const Dialog = await import(/* webpackChunkName: "dialog" */ './dialog.js');
-
-        this.dialog = Dialog.create(this.labelText, { 
+    createNewDialogElement() {
+        return Dialog.create(this.labelText, { 
             timeout: this.timeout, 
             dismiss: this.dismiss,
             eventListener: this.updateAndReload.bind(this),
@@ -135,30 +139,30 @@ class PwaReloadDialog extends HTMLElement {
         });
     }
     
-    async attachDialogToShadowRoot() {
+    attachDialogToShadowRoot(dialog) {
         this.logInfo("PwaReloadDialog -> Appending dialog content and styles into shadow root.");
 
-        const dialogStyles = await import(/*webpackChunkName: "dialog-styles" */ '!!css-to-string-loader!css-loader!./dialog.css');
         const template = document.createElement('template');
-
         template.innerHTML = `
             <style>
                 :host {
                     --pwa-reload-dialog-color: ${this.color};
                     --pwa-reload-dialog-bg-color: ${this.backgroundColor};
                 }
-                ${dialogStyles.default}
+                ${dialogStyles}
             </style>
         `;
 
         this.logInfo("PwaReloadDialog -> Opening dialog...");
         this.shadowRoot.appendChild(template.content.cloneNode(true));
-        this.shadowRoot.appendChild(this.dialog);
+        this.shadowRoot.appendChild(dialog);
     }
 
     open() {
-        this.dialog.setAttributeNode(document.createAttribute('open'));
-        this.dialog.setAttribute('aria-hidden', 'false');
+        const dialog = this.shadowRoot.querySelector('.dialog');
+        dialog.removeAttribute('closed');
+        dialog.setAttributeNode(document.createAttribute('open'));
+        dialog.setAttribute('aria-hidden', 'false');
         this.logInfo("PwaReloadDialog -> Opened");
 
         if (this.timeout) {
@@ -169,9 +173,13 @@ class PwaReloadDialog extends HTMLElement {
     }
 
     dismiss() {
-        this.dialog.removeAttribute('open');
-        this.dialog.setAttribute('aria-hidden', 'true');
-        this.logInfo("PwaReloadDialog -> Dismissed");
+        const dialog = this.shadowRoot.querySelector('.dialog');
+        dialog.removeAttribute('open');
+        dialog.setAttribute('aria-hidden', 'true');
+        dialog.addEventListener('transitionend', () => {
+            this.logInfo("PwaReloadDialog -> Dismissed");
+            dialog.setAttributeNode(document.createAttribute('closed'));
+        });
     }
 
     updateAndReload() {
