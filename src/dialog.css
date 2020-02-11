@@ -1,0 +1,53 @@
+.dialog {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--pwa-reload-dialog-bg-color, #ff4081);
+    color: var(--pwa-reload-dialog-color, #303f9f);
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+    padding: 3px 0px 3px 4px;
+    transition: transform 0.3s ease-in;
+    transform-origin: center top;
+    transform: scaleY(0);
+    z-index: -1;
+}
+#dialog-text-content {
+    font-size: 14px;
+    font-weight: bolder;
+    flex-grow: 5;
+}
+.dialog-dismiss-button {
+    padding: 0px 16px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: inherit;
+    font-weight: bolder;
+}
+.dialog-dismiss-button > svg > .x-path {
+    fill: var(--pwa-reload-dialog-color, #303f9f);
+}
+.dialog[open] {
+    transform: scaleY(1);
+}
+
+.focus-text {
+    will-change: transform;
+}
+.focus-text:focus {
+    outline: none;
+    border: none;
+    transition: all 0.3s ease-out;
+    transform: scale(1.05);
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
+}
+.focus-outline:focus {
+    transition: outline 0.3s ease-out;
+    outline: 2px solid #FFEB3B;
+}

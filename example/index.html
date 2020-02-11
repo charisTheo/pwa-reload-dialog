@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>&lt;pwa-reload-dialog&gt;</title>
+</head>
+<body>
+    <main>
+        <h2>PWA Reload Dialog</h2>
+        <button type="button" onclick="document.querySelector('pwa-reload-dialog').open()">Open dialog</button>
+        
+        <pwa-reload-dialog 
+            sw-url="./sw.js" 
+            sw-scope="/"
+            timeout="8000"
+            dev
+        ></pwa-reload-dialog>
+    </main>
+
+    <!-- <script type="module" src="./dist.js"></script> -->
+</body>
+</html>
