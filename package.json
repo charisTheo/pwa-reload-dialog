@@ -1,6 +1,6 @@
 {
   "name": "pwa-reload-dialog",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A minimal dialog message for PWAs that gives the user the option to reload the page on a new version of the web app.",
   "author": "charistheo",
   "license": "MIT",
