@@ -1,13 +1,24 @@
 # <p align="center">&lt;pwa-reload-dialog&gt;</p>
 
 <p align="center">
+
+  [![npm version](https://badge.fury.io/js/pwa-reload-dialog.svg)](//npmjs.com/package/pwa-reload-dialog)
+  [![Dependency status](https://david-dm.org/charisTheo/pwa-reload-dialog.svg)](//npmjs.com/package/pwa-reload-dialog?activeTab=dependencies)
+
+</p>
+
+<p align="center">
+
   <img src="https://github.com/charisTheo/pwa-reload-dialog/blob/master/screenshot.png?raw=true" alt="Example PWA reload dialog"/>
+
 </p>
 
 A minimal dialog message for PWAs that gives the user the option to reload the page on a new version of the web app. If the dialog is dismissed, the Service Worker will remain in the waiting phase and the new version of the website will not be loaded.
 
-[![npm version](https://badge.fury.io/js/pwa-reload-dialog.svg)](//npmjs.com/package/pwa-reload-dialog)
-[![Dependency status](https://david-dm.org/charisTheo/pwa-reload-dialog.svg)](//npmjs.com/package/pwa-reload-dialog?activeTab=dependencies)
+## Features
+* Custom Web Component
+* Accessible
+* Works seemlessly with PWAs
 
 ----
 
@@ -123,6 +134,18 @@ You can either configure the component using JavaScript or even by HTML attribut
       color="#d500f9"
       background-color="#232323"
     ></pwa-reload-dialog>
+
+
+## Polyfills
+
+### Install polyfills
+      npm install @webcomponents/webcomponentsjs
+
+### Load polyfill
+      <!-- load webcomponents bundle, which includes all the necessary polyfills -->
+      <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+
+> ℹ [More info on polyfills](https://github.com/webcomponents/polyfills/tree/master/packages/webcomponentsjs#how-to-use)
 
 ## Logging
 
