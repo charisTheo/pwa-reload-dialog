@@ -34,7 +34,7 @@ A minimal dialog message for PWAs that gives the user the option to reload the p
 
 ### Install
 
-- #### npm
+#### npm
 
 1. Inside your project directory run 
 
@@ -52,7 +52,7 @@ A minimal dialog message for PWAs that gives the user the option to reload the p
 
           <script src="./node_modules/pwa-reload-dialog/dist/index.js"></script>
 
-- #### web
+#### web
 
       <script type="module" src="https://unpkg.com/pwa-reload-dialog"></script>
 
@@ -61,7 +61,7 @@ A minimal dialog message for PWAs that gives the user the option to reload the p
 1. Add this listener to your Service Worker file _(ex: `sw.js`)_
 
         addEventListener('message', event => {
-          if (event.data && event.data.type === 'NEW_VERSION') {
+          if (event.data && event.data.type === 'SKIP_WAITING') {
               skipWaiting();
           }
         });

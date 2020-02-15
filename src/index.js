@@ -113,7 +113,7 @@ class PwaReloadDialog extends HTMLElement {
         workbox.addEventListener('waiting' , () => {
             this.logWarn(`PwaReloadDialog -> Make sure you include the following in your Service Worker JS file:
                 addEventListener('message', event => {
-                    if (event.data && event.data.type === 'NEW_VERSION') {
+                    if (event.data && event.data.type === 'SKIP_WAITING') {
                         skipWaiting();
                     }
                 });
@@ -186,6 +186,7 @@ class PwaReloadDialog extends HTMLElement {
     updateAndReload() {
         this.logInfo("PwaReloadDialog -> Updating service worker and reloading the page.");
         workbox.addEventListener('controlling', () => window.location.reload());
+        workbox.messageSW({ type: 'SKIP_WAITING'});
         workbox.messageSW({ type: 'NEW_VERSION'});
     }
 }
